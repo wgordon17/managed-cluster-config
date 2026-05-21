@@ -39,6 +39,21 @@ configMapGenerator:
       - config.yaml=configmaps/cluster-monitoring-config.yaml
 
 patches:
+  - patch: |
+      apiVersion: operator.openshift.io/v1
+      kind: Console
+      metadata:
+        name: cluster
+      spec:
+        plugins:
+          - odf-console
+          - acm
+          - mce
+          - logging-view-plugin
+          - networking-console-plugin
+          - monitoring-plugin
+          - kubevirt-plugin
+          - nmstate-console-plugin
   - target:
       kind: ClusterIssuer
       name: letsencrypt-.*-dns01
